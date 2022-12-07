@@ -19,32 +19,23 @@ def main():
         if re.match('^\$ cd', li):
             x = li.split(' ')
             print(f"x2 - {x[2]}")
-            # print(f'0 - {x[0]} - 1 {x[1]} - 2 {x[2]}')
             if x[2] == '..':
-                # if re.match('\.\.', x[2]):
                 if (len(path) > 1):
                     print("pop")
                     path.pop()
             elif x[2] == '/':
-                print('root', x[2])
+                # print('root', x[2])
                 path = ['root']
-                pathj = ''.join(path)
-                if pathj in dirs:
-                    pass
-                else:
-                    dirs[pathj] = {}
             else:
+                # print(f"path - {path}")
                 path.append(x[2])
-                print(f"path - {path}")
-                pathj = ''.join(path)
-                if pathj in dirs:
-                    pass
-                else:
-                    dirs[pathj] = {}
 
-            # dirs[pathj] = {}
+            pathj = ''.join(path)
+            if pathj in dirs:
+                pass
+            else:
+                dirs[pathj] = {}
 
-                # print(path)
         elif re.match('^\$ ls', li):
             pass
 
@@ -83,7 +74,23 @@ def main():
         if 'value' in dirs[j]:
             if dirs[j]['value'] <= 100000:
                 total += dirs[j]['value']
+
+    print(f"the root is {dirs['root']['value']}")
+    avail = 70000000 - dirs['root']['value']
+    req = 30000000 - avail
+    print(f"the avail is {avail}")
     print(f"the total is {total}")
+    print(f"the req is {req}")
+
+    remdirs = []
+    for i, j in enumerate(dirs):
+        if 'value' in dirs[j]:
+            num = dirs[j]['value']
+            if dirs[j]['value'] >= req:
+                remdirs.append(num)
+    remdirs.sort()
+    # print(remdirs)
+    print(f"the answer to part 2 is {remdirs[0]}")
 
 
 main()
