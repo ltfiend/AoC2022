@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+# Part 1
+# length = 4
+# Part 2
+length = 14
+
 
 def main():
     counter = 0
@@ -9,21 +14,19 @@ def main():
         lines = f.readlines()
     input = tuple(line.replace('\n', ' ') for line in lines)
 
-    for li in input:
-        for i in li:
-            chars = [li[counter:counter+14]]
-            for x in range(14):
-                checkchar = chars[0][0]
-                chars[0] = chars[0][1:]
-                if checkchar in chars[0]:
-                    print("yep")
+    for li in input:  # unnecessary but it's part of my default start
+        for i in li:  # could use range and dump the counter variable
+            chars = li[counter:counter+length]
+            for x in range(length):
+                checkchar = chars[0]
+                chars = chars[1:]
+                if checkchar in chars:
                     dupe = 1
-                print(f"type - {type(chars)} - chars - {chars}")
+                # print(f"type - {type(chars)} - chars - {chars}")
             if (dupe == 0):
-                print(counter+14)
+                print(f"The answer is {counter+length}")
                 quit()
             else:
-                print('reset')
                 counter += 1
                 dupe = 0
                 continue
